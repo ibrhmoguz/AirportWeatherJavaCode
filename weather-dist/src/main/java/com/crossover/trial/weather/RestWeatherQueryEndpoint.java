@@ -3,6 +3,7 @@ package com.crossover.trial.weather;
 import com.crossover.trial.weather.model.AirportData;
 import com.crossover.trial.weather.model.AtmosphericInformation;
 import com.crossover.trial.weather.service.WeatherQueryService;
+import com.crossover.trial.weather.service.WeatherQueryServiceImpl;
 import com.google.gson.Gson;
 
 import javax.inject.Inject;
@@ -31,7 +32,7 @@ public class RestWeatherQueryEndpoint implements WeatherQueryEndpoint {
     public static final Gson gson = new Gson();
 
     /** all known airports */
-    protected static List<AirportData> airportData = new ArrayList<>();
+    public static List<AirportData> airportData = new ArrayList<>();
 
     /** atmospheric information for each airport, idx corresponds with airportData */
     protected static List<AtmosphericInformation> atmosphericInformation = new LinkedList<>();
@@ -182,10 +183,10 @@ public class RestWeatherQueryEndpoint implements WeatherQueryEndpoint {
      * @return the distance in KM
      */
     public double calculateDistance(AirportData ad1, AirportData ad2) {
-        double deltaLat = Math.toRadians(ad2.latitude - ad1.latitude);
-        double deltaLon = Math.toRadians(ad2.longitude - ad1.longitude);
+        double deltaLat = Math.toRadians(ad2.getLatitude() - ad1.getLatitude());
+        double deltaLon = Math.toRadians(ad2.getLongitude() - ad1.getLongitude());
         double a =  Math.pow(Math.sin(deltaLat / 2), 2) + Math.pow(Math.sin(deltaLon / 2), 2)
-                * Math.cos(ad1.latitude) * Math.cos(ad2.latitude);
+                * Math.cos(ad1.getLatitude()) * Math.cos(ad2.getLatitude());
         double c = 2 * Math.asin(Math.sqrt(a));
         return R * c;
     }
