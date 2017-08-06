@@ -20,9 +20,6 @@ public class DataPoint {
 
     public int count = 0;
 
-    /** private constructor, use the builder to create this object */
-    private DataPoint() { }
-
     protected DataPoint(int first, int second, int mean, int third, int count) {
         this.setFirst(first);
         this.setMean(mean);

@@ -58,4 +58,9 @@ public class AirportDataRepository {
 		}
 		throw new AirportNotFound();
 	}
+
+	public int getAirportDataIdx(String iataCode) {
+		AirportData ad = getAirport(iataCode);
+		return this.airportList.indexOf(ad);
+	}
 }
