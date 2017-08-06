@@ -1,7 +1,11 @@
 package com.crossover.trial.weather;
 
+import com.crossover.trial.weather.model.AirportData;
+import com.crossover.trial.weather.model.AtmosphericInformation;
+import com.crossover.trial.weather.service.WeatherQueryService;
 import com.google.gson.Gson;
 
+import javax.inject.Inject;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import java.util.*;
@@ -31,6 +35,9 @@ public class RestWeatherQueryEndpoint implements WeatherQueryEndpoint {
 
     /** atmospheric information for each airport, idx corresponds with airportData */
     protected static List<AtmosphericInformation> atmosphericInformation = new LinkedList<>();
+    
+    @Inject
+	private WeatherQueryService queryService;
 
     /**
      * Internal performance counter to better understand most requested information, this map can be improved but
@@ -52,6 +59,9 @@ public class RestWeatherQueryEndpoint implements WeatherQueryEndpoint {
      */
     @Override
     public String ping() {
+    	
+    	return queryService.ping();
+    	/*
         Map<String, Object> retval = new HashMap<>();
 
         int datasize = 0;
@@ -91,6 +101,8 @@ public class RestWeatherQueryEndpoint implements WeatherQueryEndpoint {
         retval.put("radius_freq", hist);
 
         return gson.toJson(retval);
+        
+        */
     }
 
     /**

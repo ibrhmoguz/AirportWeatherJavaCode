@@ -1,5 +1,9 @@
 package com.crossover.trial.weather;
 
+import com.crossover.trial.weather.model.AirportData;
+import com.crossover.trial.weather.model.AtmosphericInformation;
+import com.crossover.trial.weather.model.DataPoint;
+import com.crossover.trial.weather.model.DataPointType;
 import com.google.gson.Gson;
 
 import javax.ws.rs.Path;
