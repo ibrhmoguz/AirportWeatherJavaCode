@@ -1,15 +1,13 @@
 package com.crossover.trial.weather;
 
-import com.crossover.trial.weather.model.DataPoint;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import org.junit.Before;
-import org.junit.Test;
 
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
+import com.crossover.trial.weather.model.DataPoint;
+import com.crossover.trial.weather.rest.RestWeatherCollectorEndpoint;
+import com.crossover.trial.weather.rest.RestWeatherQueryEndpoint;
+import com.crossover.trial.weather.rest.WeatherCollectorEndpoint;
+import com.crossover.trial.weather.rest.WeatherQueryEndpoint;
+import com.google.gson.Gson;
 
 public class WeatherEndpointTest {
 
