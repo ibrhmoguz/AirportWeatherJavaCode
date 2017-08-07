@@ -1,11 +1,12 @@
 package com.crossover.trial.weather.repository;
 
-import javax.enterprise.context.ApplicationScoped;
+import java.util.List;
 
-@ApplicationScoped
-public class AtmosphericDataRepository {
+import com.crossover.trial.weather.model.AtmosphericInformation;
 
-	public AtmosphericDataRepository(){
-		
-	}
+public interface AtmosphericDataRepository {
+
+	List<AtmosphericInformation> getAtmosphericInformation();
+
+	AtmosphericInformation getAtmosphericInformation(int idx);
 }

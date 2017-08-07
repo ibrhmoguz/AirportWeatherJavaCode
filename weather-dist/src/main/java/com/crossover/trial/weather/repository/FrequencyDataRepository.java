@@ -1,11 +1,13 @@
 package com.crossover.trial.weather.repository;
 
-import javax.enterprise.context.ApplicationScoped;
+import java.util.Map;
 
-@ApplicationScoped
-public class FrequencyDataRepository {
+import com.crossover.trial.weather.model.AirportData;
 
-	public FrequencyDataRepository(){
-		
-	}
+public interface FrequencyDataRepository {
+	int getRequestFrequency(AirportData airport, int value);
+
+	void addRequestFrequency(AirportData airport, int value);
+
+	Map<Double, Integer> getRadiusFreq();
 }

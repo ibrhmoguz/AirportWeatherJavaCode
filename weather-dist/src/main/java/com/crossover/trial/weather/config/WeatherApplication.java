@@ -5,8 +5,8 @@ import java.util.Set;
 
 import javax.ws.rs.core.Application;
 
-import com.crossover.trial.weather.RestWeatherCollectorEndpoint;
-import com.crossover.trial.weather.RestWeatherQueryEndpoint;
+import com.crossover.trial.weather.rest.RestWeatherCollectorEndpoint;
+import com.crossover.trial.weather.rest.RestWeatherQueryEndpoint;
 
 /**
  * The Class WeatherApplication keeps all resource classes.

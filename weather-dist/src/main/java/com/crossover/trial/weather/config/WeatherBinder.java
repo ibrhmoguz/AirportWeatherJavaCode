@@ -2,6 +2,8 @@ package com.crossover.trial.weather.config;
 
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 
+import com.crossover.trial.weather.repository.AirportDataRepository;
+import com.crossover.trial.weather.repository.AirportDataRepositoryImpl;
 import com.crossover.trial.weather.service.WeatherQueryService;
 import com.crossover.trial.weather.service.WeatherQueryServiceImpl;
 
@@ -18,5 +20,6 @@ public class WeatherBinder extends AbstractBinder {
     @Override
     protected void configure() {
         bind(WeatherQueryServiceImpl.class).to(WeatherQueryService.class);
+        bind(AirportDataRepositoryImpl.class).to(AirportDataRepository.class);
     }
 }

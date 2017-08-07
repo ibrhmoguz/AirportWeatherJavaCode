@@ -1,18 +1,22 @@
-package com.crossover.trial.weather;
+package com.crossover.trial.weather.rest;
 
-import com.crossover.trial.weather.model.AirportData;
-import com.crossover.trial.weather.model.AtmosphericInformation;
-import com.crossover.trial.weather.service.WeatherQueryService;
-import com.crossover.trial.weather.service.WeatherQueryServiceImpl;
-import com.google.gson.Gson;
+import static com.crossover.trial.weather.rest.RestWeatherCollectorEndpoint.addAirport;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
-import java.util.*;
-import java.util.logging.Logger;
 
-import static com.crossover.trial.weather.RestWeatherCollectorEndpoint.addAirport;
+import com.crossover.trial.weather.model.AirportData;
+import com.crossover.trial.weather.model.AtmosphericInformation;
+import com.crossover.trial.weather.service.WeatherQueryService;
+import com.google.gson.Gson;
 
 /**
  * The Weather App REST endpoint allows clients to query, update and check health stats. Currently, all data is
@@ -61,8 +65,8 @@ public class RestWeatherQueryEndpoint implements WeatherQueryEndpoint {
     @Override
     public String ping() {
     	
-    	return queryService.ping();
-    	/*
+    	//return queryService.ping();
+    	
         Map<String, Object> retval = new HashMap<>();
 
         int datasize = 0;
@@ -103,7 +107,7 @@ public class RestWeatherQueryEndpoint implements WeatherQueryEndpoint {
 
         return gson.toJson(retval);
         
-        */
+       
     }
 
     /**
@@ -194,7 +198,7 @@ public class RestWeatherQueryEndpoint implements WeatherQueryEndpoint {
     /**
      * A dummy init method that loads hard coded data
      */
-    protected static void init() {
+    public static void init() {
         airportData.clear();
         atmosphericInformation.clear();
         requestFrequency.clear();
