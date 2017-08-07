@@ -11,7 +11,7 @@ import com.google.gson.JsonSyntaxException;
  */
 public interface WeatherCollectService {
 
-	void updateWeather(String iataCode, String pointType, String datapointJson) throws WeatherException;
+	void updateWeather(String iataCode, String pointType, String datapointJson);
 
 	String getAirports();
 

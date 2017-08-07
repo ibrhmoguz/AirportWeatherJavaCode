@@ -9,6 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.crossover.trial.weather.exception.WeatherException;
 import com.crossover.trial.weather.model.AirportData;
 import com.crossover.trial.weather.model.DataPointType;
 
@@ -37,6 +38,7 @@ public interface WeatherCollectorEndpoint {
      * @param datapointJson a json dict containing mean, first, second, thrid and count keys
      *
      * @return HTTP Response code
+     * @throws WeatherException 
      */
     @POST
     @Path("/weather/{iata}/{pointType}")

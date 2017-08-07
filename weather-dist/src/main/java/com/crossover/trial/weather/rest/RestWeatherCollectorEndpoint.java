@@ -5,8 +5,10 @@ import com.crossover.trial.weather.model.AirportData;
 import com.crossover.trial.weather.model.AtmosphericInformation;
 import com.crossover.trial.weather.model.DataPoint;
 import com.crossover.trial.weather.model.DataPointType;
+import com.crossover.trial.weather.service.WeatherCollectService;
 import com.google.gson.Gson;
 
+import javax.inject.Inject;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
@@ -26,10 +28,9 @@ import java.util.logging.Logger;
 
 @Path("/collect")
 public class RestWeatherCollectorEndpoint implements WeatherCollectorEndpoint {
-	public final static Logger LOGGER = Logger.getLogger(RestWeatherCollectorEndpoint.class.getName());
 
-	/** shared gson json to object factory */
-	public final static Gson gson = new Gson();
+	@Inject
+	private WeatherCollectService collectService;
 
 	@Override
 	public Response ping() {
@@ -42,28 +43,21 @@ public class RestWeatherCollectorEndpoint implements WeatherCollectorEndpoint {
 		if (iataCode.isEmpty() || pointType.isEmpty() || datapointJson.isEmpty()) {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
-		
-		try {
-			addDataPoint(iataCode, pointType, gson.fromJson(datapointJson, DataPoint.class));
-		} catch (WeatherException e) {
-			e.printStackTrace();
-		}
+
+		this.collectService.updateWeather(iataCode, pointType, datapointJson);
 		return Response.status(Response.Status.OK).build();
 	}
 
 	@Override
 	public Response getAirports() {
-		Set<String> retval = new HashSet<>();
-		for (AirportData ad : airportData) {
-			retval.add(ad.getIata());
-		}
-		return Response.status(Response.Status.OK).entity(retval).build();
+		String retVal = this.collectService.getAirports();
+		return Response.status(Response.Status.OK).entity(retVal).build();
 	}
 
 	@Override
 	public Response getAirport(@PathParam("iata") String iata) {
-		AirportData ad = findAirportData(iata);
-		return Response.status(Response.Status.OK).entity(ad).build();
+		String retVal = this.collectService.getAirport(iata);
+		return Response.status(Response.Status.OK).entity(retVal).build();
 	}
 
 	@Override
@@ -77,7 +71,7 @@ public class RestWeatherCollectorEndpoint implements WeatherCollectorEndpoint {
 			double latitude = Double.parseDouble(latString);
 			double longtitude = Double.parseDouble(latString);
 
-			addAirport(iata, latitude, longtitude);
+			this.collectService.addAirport(iata, latitude, longtitude);
 			return Response.status(Response.Status.OK).build();
 		} catch (NumberFormatException e) {
 			return Response.status(Response.Status.BAD_REQUEST).build();
@@ -89,121 +83,13 @@ public class RestWeatherCollectorEndpoint implements WeatherCollectorEndpoint {
 		if (iata.isEmpty()) {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
-		return Response.status(Response.Status.NOT_IMPLEMENTED).build();
+		this.collectService.deleteAirport(iata);
+		return Response.status(Response.Status.OK).build();
 	}
 
 	@Override
 	public Response exit() {
 		System.exit(0);
 		return Response.noContent().build();
-	}
-
-	/**
-	 * Update the airports weather data with the collected data.
-	 *
-	 * @param iataCode
-	 *            the 3 letter IATA code
-	 * @param pointType
-	 *            the point type {@link DataPointType}
-	 * @param dp
-	 *            a datapoint object holding pointType data
-	 *
-	 * @throws WeatherException
-	 *             if the update can not be completed
-	 */
-	public void addDataPoint(String iataCode, String pointType, DataPoint dp) throws WeatherException {
-		int airportDataIdx = getAirportDataIdx(iataCode);
-		AtmosphericInformation ai = atmosphericInformation.get(airportDataIdx);
-		updateAtmosphericInformation(ai, pointType, dp);
-	}
-
-	/**
-	 * update atmospheric information with the given data point for the given
-	 * point type
-	 *
-	 * @param ai
-	 *            the atmospheric information object to update
-	 * @param pointType
-	 *            the data point type as a string
-	 * @param dp
-	 *            the actual data point
-	 */
-	public void updateAtmosphericInformation(AtmosphericInformation ai, String pointType, DataPoint dp)
-			throws WeatherException {
-		final DataPointType dptype = DataPointType.valueOf(pointType.toUpperCase());
-
-		if (pointType.equalsIgnoreCase(DataPointType.WIND.name())) {
-			if (dp.getMean() >= 0) {
-				ai.setWind(dp);
-				ai.setLastUpdateTime(System.currentTimeMillis());
-				return;
-			}
-		}
-
-		if (pointType.equalsIgnoreCase(DataPointType.TEMPERATURE.name())) {
-			if (dp.getMean() >= -50 && dp.getMean() < 100) {
-				ai.setTemperature(dp);
-				ai.setLastUpdateTime(System.currentTimeMillis());
-				return;
-			}
-		}
-
-		if (pointType.equalsIgnoreCase(DataPointType.HUMIDTY.name())) {
-			if (dp.getMean() >= 0 && dp.getMean() < 100) {
-				ai.setHumidity(dp);
-				ai.setLastUpdateTime(System.currentTimeMillis());
-				return;
-			}
-		}
-
-		if (pointType.equalsIgnoreCase(DataPointType.PRESSURE.name())) {
-			if (dp.getMean() >= 650 && dp.getMean() < 800) {
-				ai.setPressure(dp);
-				ai.setLastUpdateTime(System.currentTimeMillis());
-				return;
-			}
-		}
-
-		if (pointType.equalsIgnoreCase(DataPointType.CLOUDCOVER.name())) {
-			if (dp.getMean() >= 0 && dp.getMean() < 100) {
-				ai.setCloudCover(dp);
-				ai.setLastUpdateTime(System.currentTimeMillis());
-				return;
-			}
-		}
-
-		if (pointType.equalsIgnoreCase(DataPointType.PRECIPITATION.name())) {
-			if (dp.getMean() >= 0 && dp.getMean() < 100) {
-				ai.setPrecipitation(dp);
-				ai.setLastUpdateTime(System.currentTimeMillis());
-				return;
-			}
-		}
-
-		throw new IllegalStateException("couldn't update atmospheric data");
-	}
-
-	/**
-	 * Add a new known airport to our list.
-	 *
-	 * @param iataCode
-	 *            3 letter code
-	 * @param latitude
-	 *            in degrees
-	 * @param longitude
-	 *            in degrees
-	 *
-	 * @return the added airport
-	 */
-	public static AirportData addAirport(String iataCode, double latitude, double longitude) {
-		AirportData ad = new AirportData();
-		airportData.add(ad);
-
-		AtmosphericInformation ai = new AtmosphericInformation();
-		atmosphericInformation.add(ai);
-		ad.setIata(iataCode);
-		ad.setLatitude(latitude);
-		ad.setLatitude(longitude);
-		return ad;
 	}
 }

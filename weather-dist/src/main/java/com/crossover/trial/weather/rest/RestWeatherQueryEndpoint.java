@@ -1,7 +1,5 @@
 package com.crossover.trial.weather.rest;
 
-import static com.crossover.trial.weather.rest.RestWeatherCollectorEndpoint.addAirport;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -54,9 +52,6 @@ public class RestWeatherQueryEndpoint implements WeatherQueryEndpoint {
 
     public static Map<Double, Integer> radiusFreq = new HashMap<Double, Integer>();
 
-    static {
-        init();
-    }
     /**
      * Retrieve service health including total size of valid data points and request frequency information.
      *
@@ -194,20 +189,4 @@ public class RestWeatherQueryEndpoint implements WeatherQueryEndpoint {
         double c = 2 * Math.asin(Math.sqrt(a));
         return R * c;
     }
-
-    /**
-     * A dummy init method that loads hard coded data
-     */
-    public static void init() {
-        airportData.clear();
-        atmosphericInformation.clear();
-        requestFrequency.clear();
-
-        addAirport("BOS", 42.364347, -71.005181);
-        addAirport("EWR", 40.6925, -74.168667);
-        addAirport("JFK", 40.639751, -73.778925);
-        addAirport("LGA", 40.777245, -73.872608);
-        addAirport("MMU", 40.79935, -74.4148747);
-    }
-
 }
