@@ -6,37 +6,37 @@ import java.util.List;
 import java.util.Set;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Singleton;
 
 import com.crossover.trial.weather.exception.AirportAlreadyExists;
 import com.crossover.trial.weather.exception.AirportNotFound;
 import com.crossover.trial.weather.model.AirportData;
 
-@ApplicationScoped
-public class AirportDataRepositoryImpl implements AirportDataRepository{
+@Singleton
+public class AirportDataRepositoryImpl implements AirportDataRepository {
 
-	private List<AirportData> airportList;
+	private static final List<AirportData> airportList = new ArrayList<>();
 
 	public AirportDataRepositoryImpl() {
-		airportList = new ArrayList<>();
 	}
 
 	@Override
 	public void addAirport(AirportData airportData) {
-		for (AirportData data : this.airportList) {
+		for (AirportData data : AirportDataRepositoryImpl.airportList) {
 			if (data.getIata() == airportData.getIata()) {
 				throw new AirportAlreadyExists();
 			}
 		}
-		this.airportList.add(airportData);
+		AirportDataRepositoryImpl.airportList.add(airportData);
 	}
 
 	@Override
 	public String getAirports() {
-		if (this.airportList.isEmpty())
+		if (AirportDataRepositoryImpl.airportList.isEmpty())
 			throw new AirportNotFound();
 
 		Set<String> retval = new HashSet<>();
-		for (AirportData ad : this.airportList) {
+		for (AirportData ad : AirportDataRepositoryImpl.airportList) {
 			retval.add(ad.getIata());
 		}
 		return retval.toString();
@@ -44,7 +44,7 @@ public class AirportDataRepositoryImpl implements AirportDataRepository{
 
 	@Override
 	public AirportData getAirport(String iata) {
-		for (AirportData data : this.airportList) {
+		for (AirportData data : AirportDataRepositoryImpl.airportList) {
 			if (data.getIata().equals(iata)) {
 				return data;
 			}
@@ -54,9 +54,9 @@ public class AirportDataRepositoryImpl implements AirportDataRepository{
 
 	@Override
 	public void deleteAirport(String iata) {
-		for (AirportData data : this.airportList) {
+		for (AirportData data : AirportDataRepositoryImpl.airportList) {
 			if (data.getIata().equals(iata)) {
-				this.airportList.remove(data);
+				AirportDataRepositoryImpl.airportList.remove(data);
 				return;
 			}
 		}
@@ -66,6 +66,11 @@ public class AirportDataRepositoryImpl implements AirportDataRepository{
 	@Override
 	public int getAirportDataIdx(String iataCode) {
 		AirportData ad = getAirport(iataCode);
-		return this.airportList.indexOf(ad);
+		return AirportDataRepositoryImpl.airportList.indexOf(ad);
+	}
+
+	@Override
+	public List<AirportData> getAirportDataList() {
+		return AirportDataRepositoryImpl.airportList;
 	}
 }

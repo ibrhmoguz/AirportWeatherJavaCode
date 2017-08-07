@@ -40,7 +40,65 @@ public class AtmosphericInformation {
         this.lastUpdateTime = System.currentTimeMillis();
     }
 
-    public DataPoint getTemperature() {
+    @Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((cloudCover == null) ? 0 : cloudCover.hashCode());
+		result = prime * result + ((humidity == null) ? 0 : humidity.hashCode());
+		result = prime * result + (int) (lastUpdateTime ^ (lastUpdateTime >>> 32));
+		result = prime * result + ((precipitation == null) ? 0 : precipitation.hashCode());
+		result = prime * result + ((pressure == null) ? 0 : pressure.hashCode());
+		result = prime * result + ((temperature == null) ? 0 : temperature.hashCode());
+		result = prime * result + ((wind == null) ? 0 : wind.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AtmosphericInformation other = (AtmosphericInformation) obj;
+		if (cloudCover == null) {
+			if (other.cloudCover != null)
+				return false;
+		} else if (!cloudCover.equals(other.cloudCover))
+			return false;
+		if (humidity == null) {
+			if (other.humidity != null)
+				return false;
+		} else if (!humidity.equals(other.humidity))
+			return false;
+		if (lastUpdateTime != other.lastUpdateTime)
+			return false;
+		if (precipitation == null) {
+			if (other.precipitation != null)
+				return false;
+		} else if (!precipitation.equals(other.precipitation))
+			return false;
+		if (pressure == null) {
+			if (other.pressure != null)
+				return false;
+		} else if (!pressure.equals(other.pressure))
+			return false;
+		if (temperature == null) {
+			if (other.temperature != null)
+				return false;
+		} else if (!temperature.equals(other.temperature))
+			return false;
+		if (wind == null) {
+			if (other.wind != null)
+				return false;
+		} else if (!wind.equals(other.wind))
+			return false;
+		return true;
+	}
+
+	public DataPoint getTemperature() {
         return temperature;
     }
     public void setTemperature(DataPoint temperature) {

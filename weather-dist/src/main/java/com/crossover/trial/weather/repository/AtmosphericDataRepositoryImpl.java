@@ -6,17 +6,17 @@ import java.util.List;
 import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Singleton;
 
 import com.crossover.trial.weather.exception.AtmosphericInformationNotFound;
 import com.crossover.trial.weather.model.AtmosphericInformation;
 
-@ApplicationScoped
+@Singleton
 public class AtmosphericDataRepositoryImpl implements AtmosphericDataRepository {
 
-	private Map<Integer, AtmosphericInformation> atmosphericInformation;
+	private static final Map<Integer, AtmosphericInformation> atmosphericInformation = new HashMap<>();
 
 	public AtmosphericDataRepositoryImpl() {
-		this.atmosphericInformation = new HashMap<>();
 	}
 
 	@Override
@@ -26,14 +26,14 @@ public class AtmosphericDataRepositoryImpl implements AtmosphericDataRepository 
 
 	@Override
 	public AtmosphericInformation getAtmosphericInformation(int idx) {
-		if (this.atmosphericInformation == null) {
+		if (AtmosphericDataRepositoryImpl.atmosphericInformation == null) {
 			throw new AtmosphericInformationNotFound();
 		}
-		return this.atmosphericInformation.get(idx);
+		return AtmosphericDataRepositoryImpl.atmosphericInformation.get(idx);
 	}
 
 	@Override
 	public void addAtmosphericInformation(Integer idx, AtmosphericInformation atmosphericInformation) {
-		this.atmosphericInformation.put(idx, atmosphericInformation);
+		AtmosphericDataRepositoryImpl.atmosphericInformation.put(idx, atmosphericInformation);
 	}
 }

@@ -77,7 +77,7 @@ public interface WeatherCollectorEndpoint {
      */
     @POST
     @Path("/airport/{iata}/{lat}/{long}")
-    Response addAirport(@PathParam("iata") String iata,
+    Response addAirport(@PathParam ("iata") String iata,
                         @PathParam("lat") String latString,
                         @PathParam("long") String longString);
 

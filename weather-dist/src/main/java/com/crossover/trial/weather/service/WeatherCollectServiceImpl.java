@@ -1,13 +1,10 @@
 package com.crossover.trial.weather.service;
 
-import static com.crossover.trial.weather.rest.RestWeatherQueryEndpoint.airportData;
-
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import com.crossover.trial.weather.exception.WeatherException;
 import com.crossover.trial.weather.model.AirportData;
@@ -19,7 +16,6 @@ import com.crossover.trial.weather.repository.AirportDataRepository;
 import com.crossover.trial.weather.repository.AtmosphericDataRepository;
 import com.google.gson.Gson;
 
-@ApplicationScoped
 public class WeatherCollectServiceImpl implements WeatherCollectService {
 
 	private static final Logger LOGGER = Logger.getLogger(WeatherCollectServiceImpl.class.getName());
@@ -44,11 +40,8 @@ public class WeatherCollectServiceImpl implements WeatherCollectService {
 
 	@Override
 	public String getAirports() {
-		Set<String> retval = new HashSet<>();
-		for (AirportData ad : airportData) {
-			retval.add(ad.getIata());
-		}
-		return gson.toJson(retval);
+		String retVal = this.airportRepository.getAirports();
+		return gson.toJson(retVal);
 	}
 
 	@Override

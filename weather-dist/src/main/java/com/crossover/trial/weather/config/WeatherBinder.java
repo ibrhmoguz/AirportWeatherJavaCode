@@ -6,6 +6,8 @@ import com.crossover.trial.weather.repository.AirportDataRepository;
 import com.crossover.trial.weather.repository.AirportDataRepositoryImpl;
 import com.crossover.trial.weather.repository.AtmosphericDataRepository;
 import com.crossover.trial.weather.repository.AtmosphericDataRepositoryImpl;
+import com.crossover.trial.weather.repository.FrequencyDataRepository;
+import com.crossover.trial.weather.repository.FrequencyDataRepositoryImpl;
 import com.crossover.trial.weather.service.WeatherCollectService;
 import com.crossover.trial.weather.service.WeatherCollectServiceImpl;
 import com.crossover.trial.weather.service.WeatherQueryService;
@@ -27,5 +29,6 @@ public class WeatherBinder extends AbstractBinder {
         bind(WeatherCollectServiceImpl.class).to(WeatherCollectService.class);
         bind(AirportDataRepositoryImpl.class).to(AirportDataRepository.class);
         bind(AtmosphericDataRepositoryImpl.class).to(AtmosphericDataRepository.class);
+        bind(FrequencyDataRepositoryImpl.class).to(FrequencyDataRepository.class);
     }
 }

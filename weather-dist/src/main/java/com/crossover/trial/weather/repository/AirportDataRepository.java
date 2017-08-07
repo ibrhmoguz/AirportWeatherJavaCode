@@ -1,5 +1,7 @@
 package com.crossover.trial.weather.repository;
 
+import java.util.List;
+
 import com.crossover.trial.weather.model.AirportData;
 
 public interface AirportDataRepository {
@@ -13,4 +15,6 @@ public interface AirportDataRepository {
 	void deleteAirport(String iata);
 
 	int getAirportDataIdx(String iataCode);
+	
+	List<AirportData> getAirportDataList();
 }

@@ -75,9 +75,41 @@ public class DataPoint {
         return ReflectionToStringBuilder.toString(this, ToStringStyle.NO_CLASS_NAME_STYLE);
     }
 
-    public boolean equals(Object that) {
-        return this.toString().equals(that.toString());
-    }
+    @Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + count;
+		result = prime * result + first;
+		long temp;
+		temp = Double.doubleToLongBits(mean);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + second;
+		result = prime * result + third;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DataPoint other = (DataPoint) obj;
+		if (count != other.count)
+			return false;
+		if (first != other.first)
+			return false;
+		if (Double.doubleToLongBits(mean) != Double.doubleToLongBits(other.mean))
+			return false;
+		if (second != other.second)
+			return false;
+		if (third != other.third)
+			return false;
+		return true;
+	}
 
     static public class Builder {
         int first;
