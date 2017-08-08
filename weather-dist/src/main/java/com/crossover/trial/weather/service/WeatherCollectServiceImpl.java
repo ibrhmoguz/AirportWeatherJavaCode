@@ -13,11 +13,12 @@ import com.crossover.trial.weather.model.pointtype.AbstractDataPointTypeFactory;
 import com.crossover.trial.weather.repository.AirportDataRepository;
 import com.crossover.trial.weather.repository.AtmosphericDataRepository;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class WeatherCollectServiceImpl implements WeatherCollectService {
 
 	private static final Logger LOGGER = Logger.getLogger(WeatherCollectServiceImpl.class.getName());
-	public static final Gson gson = new Gson();
+	public static final Gson gson = new GsonBuilder().enableComplexMapKeySerialization().setPrettyPrinting().create();
 
 	private final AirportDataRepository airportRepository;
 	private final AtmosphericDataRepository atmosphericDataRepository;
@@ -29,11 +30,12 @@ public class WeatherCollectServiceImpl implements WeatherCollectService {
 	}
 
 	@Override
-	public void updateWeather(String iataCode, String pointType, String datapointJson) {
+	public boolean updateWeather(String iataCode, String pointType, String datapointJson) {
 		int airportDataIdx = this.airportRepository.getAirportDataIdx(iataCode);
 		AtmosphericInformation atmosphericInformation = this.atmosphericDataRepository
 				.getAtmosphericInformation(airportDataIdx);
 		updateAtmosphericInformation(atmosphericInformation, pointType, datapointJson);
+		return true;
 	}
 
 	@Override
@@ -49,7 +51,7 @@ public class WeatherCollectServiceImpl implements WeatherCollectService {
 	}
 
 	@Override
-	public void addAirport(String iata, Double latitude, Double longtitude, String city, String country, String icao,
+	public boolean addAirport(String iata, Double latitude, Double longtitude, String city, String country, String icao,
 			Double altitude, Double timezone, String dst, String name) {
 		AirportData airport = new AirportData();
 		airport.setIata(iata);
@@ -65,11 +67,13 @@ public class WeatherCollectServiceImpl implements WeatherCollectService {
 		this.airportRepository.addAirport(airport);
 		int airportDataIdx = this.airportRepository.getAirportDataIdx(iata);
 		this.atmosphericDataRepository.addAtmosphericInformation(airportDataIdx, new AtmosphericInformation());
+		return true;
 	}
 
 	@Override
-	public void deleteAirport(String iata) {
+	public boolean deleteAirport(String iata) {
 		this.airportRepository.deleteAirport(iata);
+		return true;
 	}
 
 	private void updateAtmosphericInformation(AtmosphericInformation atmosphericInformation, String pointType,

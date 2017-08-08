@@ -1,6 +1,9 @@
 package com.crossover.trial.weather.rest;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
+
+import javax.ws.rs.core.Response;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,16 +14,17 @@ import org.mockito.MockitoAnnotations;
 
 import com.crossover.trial.weather.model.AirportData;
 import com.crossover.trial.weather.service.WeatherCollectService;
+import com.crossover.trial.weather.service.WeatherQueryService;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 public class RestWeatherQueryEndpointTest {
 
-	@Mock
-	private WeatherQueryEndpoint queryRestService;
+	@InjectMocks
+	private RestWeatherQueryEndpoint queryRestService;
 
 	@Mock
-	private WeatherCollectService collectService;
+	private WeatherQueryService queryService;
 
 	public RestWeatherQueryEndpointTest() {
 	}
@@ -28,40 +32,19 @@ public class RestWeatherQueryEndpointTest {
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		init();
+		when(queryService.ping()).thenReturn("ready");
+		when(queryService.weather("BOS", "20")).thenReturn("ready");
 	}
-/*
+
 	@Test
 	public void testPing() {
-		String ping = this.queryRestService.ping();
-		JsonElement pingResult = new JsonParser().parse(ping);
-		assertEquals(1, pingResult.getAsJsonObject().get("datasize").getAsInt());
-		assertEquals(4, pingResult.getAsJsonObject().get("iata_freq").getAsJsonObject().entrySet().size());
+		String response = this.queryRestService.ping();
+		assertEquals("ready", response);
 	}
-*/
-	/*
-	 * @Test public void testWeather() { Response response =
-	 * this.queryRestService.weather("JFK", "20"); JsonElement pingResult = new
-	 * JsonParser().parse(ping); assertEquals(1,
-	 * pingResult.getAsJsonObject().get("datasize").getAsInt()); assertEquals(4,
-	 * pingResult.getAsJsonObject().get("iata_freq").getAsJsonObject().entrySet(
-	 * ).size()); }
-	 */
-
-	private void init() {
-		this.collectService.addAirport("BOS", 42.364347, -71.005181, "Boston", "United States", "KBOS", 19.0, -5.0, "A",
-				"General Edward Lawrence Logan Intl");
-		// addAirport("EWR", 40.6925, -74.168667);
-		// addAirport("JFK", 40.639751, -73.778925);
-		// addAirport("LGA", 40.777245, -73.872608);
-		// addAirport("MMU", 40.79935, -74.4148747);
-	}
-
-	private void addAirport(String iataCode, double latitude, double longitude) {
-		AirportData ad = new AirportData();
-		ad.setIata(iataCode);
-		ad.setLatitude(latitude);
-		ad.setLongitude(longitude);
-
+	
+	@Test
+	public void testWeather() {
+		Response response = this.queryRestService.weather("BOS", "20");
+		assertEquals(200, response.getStatus());
 	}
 }

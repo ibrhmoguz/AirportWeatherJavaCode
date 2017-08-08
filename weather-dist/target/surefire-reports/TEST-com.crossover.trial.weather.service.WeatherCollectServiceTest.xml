@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="2" failures="0" name="com.crossover.trial.weather.service.WeatherQueryServiceTest" time="0.052" errors="0" skipped="0">
+<testsuite tests="6" failures="0" name="com.crossover.trial.weather.service.WeatherCollectServiceTest" time="0.024" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_144\jre\bin"/>
@@ -63,6 +63,10 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="com.crossover.trial.weather.service.WeatherQueryServiceTest" name="testPing" time="0.048"/>
-  <testcase classname="com.crossover.trial.weather.service.WeatherQueryServiceTest" name="testWeather" time="0.004"/>
+  <testcase classname="com.crossover.trial.weather.service.WeatherCollectServiceTest" name="testgetAirportsNotFound" time="0.01"/>
+  <testcase classname="com.crossover.trial.weather.service.WeatherCollectServiceTest" name="deleteAirport" time="0.002"/>
+  <testcase classname="com.crossover.trial.weather.service.WeatherCollectServiceTest" name="testgetAirports" time="0.001"/>
+  <testcase classname="com.crossover.trial.weather.service.WeatherCollectServiceTest" name="addAirport" time="0.001"/>
+  <testcase classname="com.crossover.trial.weather.service.WeatherCollectServiceTest" name="testUpdateWeather" time="0.008"/>
+  <testcase classname="com.crossover.trial.weather.service.WeatherCollectServiceTest" name="testgetAirport" time="0.002"/>
 </testsuite>

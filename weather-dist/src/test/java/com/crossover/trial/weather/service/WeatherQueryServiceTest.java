@@ -1,10 +1,9 @@
 package com.crossover.trial.weather.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +50,13 @@ public class WeatherQueryServiceTest {
 		JsonElement pingResult = new JsonParser().parse(ping);
 		assertEquals(1, pingResult.getAsJsonObject().get("datasize").getAsInt());
 		assertEquals(2, pingResult.getAsJsonObject().get("iata_freq").getAsJsonObject().entrySet().size());
+	}
+	
+	@Test
+	public void testWeather() {
+		String result = this.queryService.weather("BOS", "20");
+		JsonElement weatherResult = new JsonParser().parse(result);
+		assertEquals(1, weatherResult.getAsJsonArray().size());
 	}
 
 	private Map<Integer, AtmosphericInformation> getAtmosphericDataList() {

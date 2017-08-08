@@ -19,7 +19,7 @@ import com.google.gson.GsonBuilder;
 public class WeatherQueryServiceImpl implements WeatherQueryService {
 
 	private static final Logger LOGGER = Logger.getLogger(WeatherQueryServiceImpl.class.getName());
-	public static final Gson gson = new Gson();
+	public static final Gson gson = new GsonBuilder().enableComplexMapKeySerialization().setPrettyPrinting().create();
 
 	/** earth radius in KM */
 	public static final double R = 6372.8;
@@ -71,9 +71,7 @@ public class WeatherQueryServiceImpl implements WeatherQueryService {
 			hist[i] += e.getValue();
 		}
 		retval.put("radius_freq", hist);
-
-		Gson gson1 = new GsonBuilder().enableComplexMapKeySerialization().setPrettyPrinting().create();
-		return gson1.toJson(retval);
+		return gson.toJson(retval);
 	}
 
 	@Override
@@ -109,6 +107,9 @@ public class WeatherQueryServiceImpl implements WeatherQueryService {
 	}
 
 	private double calculateDistance(AirportData ad1, AirportData ad2) {
+		if (ad1 == null || ad2 == null)
+			return 0;
+
 		double deltaLat = Math.toRadians(ad2.getLatitude() - ad1.getLatitude());
 		double deltaLon = Math.toRadians(ad2.getLongitude() - ad1.getLongitude());
 		double a = Math.pow(Math.sin(deltaLat / 2), 2)

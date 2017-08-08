@@ -11,22 +11,30 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class DataPoint {
 
-	public double mean = 0.0;
+	private double mean = 0.0;
 
-	public int first = 0;
+	private int first = 0;
 
-	public int second = 0;
+	private int median = 0;
 
-	public int third = 0;
+	private int last = 0;
 
-	public int count = 0;
+	private int count = 0;
 
-	protected DataPoint(int first, int second, int mean, int third, int count) {
-		this.setFirst(first);
-		this.setMean(mean);
-		this.setSecond(second);
-		this.setThird(third);
-		this.setCount(count);
+	protected DataPoint(Builder builder) {
+		this.mean = builder.mean;
+		this.first = builder.first;
+		this.median = builder.median;
+		this.last = builder.last;
+		this.count = builder.count;
+	}
+
+	public int getMedian() {
+		return median;
+	}
+
+	public int getLast() {
+		return last;
 	}
 
 	/** the mean of the observations */
@@ -34,44 +42,14 @@ public class DataPoint {
 		return mean;
 	}
 
-	protected void setMean(double mean) {
-		this.mean = mean;
-	}
-
 	/** 1st quartile -- useful as a lower bound */
 	public int getFirst() {
 		return first;
 	}
 
-	protected void setFirst(int first) {
-		this.first = first;
-	}
-
-	/** 2nd quartile -- median value */
-	public int getSecond() {
-		return second;
-	}
-
-	protected void setSecond(int second) {
-		this.second = second;
-	}
-
-	/** 3rd quartile value -- less noisy upper value */
-	public int getThird() {
-		return third;
-	}
-
-	protected void setThird(int third) {
-		this.third = third;
-	}
-
 	/** the total number of measurements */
 	public int getCount() {
 		return count;
-	}
-
-	protected void setCount(int count) {
-		this.count = count;
 	}
 
 	public String toString() {
@@ -84,11 +62,11 @@ public class DataPoint {
 		int result = 1;
 		result = prime * result + count;
 		result = prime * result + first;
+		result = prime * result + last;
 		long temp;
 		temp = Double.doubleToLongBits(mean);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + second;
-		result = prime * result + third;
+		result = prime * result + median;
 		return result;
 	}
 
@@ -105,11 +83,11 @@ public class DataPoint {
 			return false;
 		if (first != other.first)
 			return false;
+		if (last != other.last)
+			return false;
 		if (Double.doubleToLongBits(mean) != Double.doubleToLongBits(other.mean))
 			return false;
-		if (second != other.second)
-			return false;
-		if (third != other.third)
+		if (median != other.median)
 			return false;
 		return true;
 	}
@@ -125,32 +103,66 @@ public class DataPoint {
 		}
 
 		public Builder withFirst(int first) {
-			first = first;
+			this.first = first;
 			return this;
 		}
 
 		public Builder withMean(int mean) {
-			mean = mean;
+			this.mean = mean;
 			return this;
 		}
 
 		public Builder withMedian(int median) {
-			median = median;
+			this.median = median;
 			return this;
 		}
 
 		public Builder withCount(int count) {
-			count = count;
+			this.count = count;
 			return this;
 		}
 
 		public Builder withLast(int last) {
-			last = last;
+			this.last = last;
 			return this;
 		}
 
 		public DataPoint build() {
-			return new DataPoint(this.first, this.mean, this.median, this.last, this.count);
+			return new DataPoint(this);
+		}
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + count;
+			result = prime * result + first;
+			result = prime * result + last;
+			result = prime * result + mean;
+			result = prime * result + median;
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			Builder other = (Builder) obj;
+			if (count != other.count)
+				return false;
+			if (first != other.first)
+				return false;
+			if (last != other.last)
+				return false;
+			if (mean != other.mean)
+				return false;
+			if (median != other.median)
+				return false;
+			return true;
 		}
 	}
 }

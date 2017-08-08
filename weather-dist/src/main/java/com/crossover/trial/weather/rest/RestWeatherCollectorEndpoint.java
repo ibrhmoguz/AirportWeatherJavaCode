@@ -41,7 +41,8 @@ public class RestWeatherCollectorEndpoint implements WeatherCollectorEndpoint {
 	@Path("/weather/{iata}/{pointType}/{datapointJson}")
 	public Response updateWeather(@PathParam("iata") String iataCode, @PathParam("pointType") String pointType,
 			@PathParam("datapointJson") String datapointJson) {
-		if (iataCode.isEmpty() || pointType.isEmpty() || datapointJson.isEmpty()) {
+		if (iataCode == null || iataCode.isEmpty() || pointType == null || pointType.isEmpty() || datapointJson == null
+				|| datapointJson.isEmpty()) {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
 
@@ -98,7 +99,7 @@ public class RestWeatherCollectorEndpoint implements WeatherCollectorEndpoint {
 	@DELETE
 	@Path("/airport/{iata}")
 	public Response deleteAirport(@PathParam("iata") String iata) {
-		if (iata.isEmpty()) {
+		if (iata == null || iata.isEmpty()) {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
 		this.collectService.deleteAirport(iata);

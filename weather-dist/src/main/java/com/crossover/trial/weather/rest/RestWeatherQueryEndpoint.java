@@ -30,6 +30,7 @@ public class RestWeatherQueryEndpoint implements WeatherQueryEndpoint {
 	@Override
 	@GET
 	@Path("/ping")
+	@Produces(MediaType.APPLICATION_JSON)
 	public String ping() {
 		return this.queryService.ping();
 	}
