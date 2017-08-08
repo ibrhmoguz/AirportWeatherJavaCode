@@ -23,20 +23,31 @@ import com.crossover.trial.weather.repository.FrequencyDataRepository;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
+
+/**
+ * The Class WeatherQueryServiceTest.
+ */
 public class WeatherQueryServiceTest {
 
+	/** The query service. */
 	@InjectMocks
 	WeatherQueryServiceImpl queryService;
 
+	/** The airport repository. */
 	@Mock
 	AirportDataRepository airportRepository;
 
+	/** The atmospheric data repository. */
 	@Mock
 	AtmosphericDataRepository atmosphericDataRepository;
 
+	/** The frequency data repository. */
 	@Mock
 	FrequencyDataRepository frequencyDataRepository;
 
+	/**
+	 * Sets the up.
+	 */
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
@@ -44,6 +55,9 @@ public class WeatherQueryServiceTest {
 		when(atmosphericDataRepository.getAtmosphericInformation()).thenReturn(getAtmosphericDataList());
 	}
 	
+	/**
+	 * Test ping.
+	 */
 	@Test
 	public void testPing() {
 		String ping = this.queryService.ping();
@@ -52,6 +66,9 @@ public class WeatherQueryServiceTest {
 		assertEquals(2, pingResult.getAsJsonObject().get("iata_freq").getAsJsonObject().entrySet().size());
 	}
 	
+	/**
+	 * Test weather.
+	 */
 	@Test
 	public void testWeather() {
 		String result = this.queryService.weather("BOS", "20");
@@ -59,6 +76,11 @@ public class WeatherQueryServiceTest {
 		assertEquals(1, weatherResult.getAsJsonArray().size());
 	}
 
+	/**
+	 * Gets the atmospheric data list.
+	 *
+	 * @return the atmospheric data list
+	 */
 	private Map<Integer, AtmosphericInformation> getAtmosphericDataList() {
 		Map<Integer, AtmosphericInformation> atmosphericDataList = new HashMap<>();
 		DataPoint dp = new DataPoint.Builder().withCount(10).withFirst(10).withMedian(20).withLast(30).withMean(22).build();
@@ -74,6 +96,11 @@ public class WeatherQueryServiceTest {
 		return atmosphericDataList;
 	}
 
+	/**
+	 * Gets the airpot list.
+	 *
+	 * @return the airpot list
+	 */
 	private List<AirportData> getAirpotList() {
 		List<AirportData> airportList = new ArrayList<>();
 		airportList.add(addAirport("BOS", 42.364347, -71.005181, "Boston", "United States", "KBOS", 19.0, -5.0, "A",
@@ -84,6 +111,21 @@ public class WeatherQueryServiceTest {
 		return airportList;
 	}
 
+	/**
+	 * Adds the airport.
+	 *
+	 * @param iata the iata
+	 * @param latitude the latitude
+	 * @param longtitude the longtitude
+	 * @param city the city
+	 * @param country the country
+	 * @param icao the icao
+	 * @param altitude the altitude
+	 * @param timezone the timezone
+	 * @param dst the dst
+	 * @param name the name
+	 * @return the airport data
+	 */
 	private AirportData addAirport(String iata, Double latitude, Double longtitude, String city, String country,
 			String icao, Double altitude, Double timezone, String dst, String name) {
 		AirportData airport = new AirportData();

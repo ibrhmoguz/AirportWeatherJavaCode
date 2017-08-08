@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package com.crossover.trial.weather.rest;
 
 import javax.ws.rs.GET;
@@ -8,6 +11,7 @@ import javax.ws.rs.core.Response;
 import com.crossover.trial.weather.exception.WeatherException;
 import com.crossover.trial.weather.model.AirportData;
 import com.crossover.trial.weather.model.DataPointType;
+
 
 /**
  * The interface shared to airport weather collection systems.
@@ -27,22 +31,18 @@ public interface WeatherCollectorEndpoint {
 	 * Update the airports atmospheric information for a particular pointType
 	 * with json formatted data point information.
 	 *
-	 * @param iataCode
-	 *            the 3 letter airport code
-	 * @param pointType
-	 *            the point type, {@link DataPointType} for a complete list
-	 * @param datapointJson
-	 *            a json dict containing mean, first, second, thrid and count
+	 * @param iataCode            the 3 letter airport code
+	 * @param pointType            the point type, {@link DataPointType} for a complete list
+	 * @param datapointJson            a json dict containing mean, first, second, thrid and count
 	 *            keys
-	 *
 	 * @return HTTP Response code
-	 * @throws WeatherException
+	 * @throws WeatherException the weather exception
 	 */
 	Response updateWeather(@PathParam("iata") String iataCode, @PathParam("pointType") String pointType,
 			String datapointJson);
 
 	/**
-	 * Return a list of known airports as a json formatted list
+	 * Return a list of known airports as a json formatted list.
 	 *
 	 * @return HTTP Response code and a json formatted list of IATA codes
 	 */
@@ -50,10 +50,9 @@ public interface WeatherCollectorEndpoint {
 
 	/**
 	 * Retrieve airport data, including latitude and longitude for a particular
-	 * airport
+	 * airport.
 	 *
-	 * @param iata
-	 *            the 3 letter airport code
+	 * @param iata            the 3 letter airport code
 	 * @return an HTTP Response with a json representation of
 	 *         {@link AirportData}
 	 */
@@ -62,12 +61,16 @@ public interface WeatherCollectorEndpoint {
 	/**
 	 * Add a new airport to the known airport list.
 	 *
-	 * @param iata
-	 *            the 3 letter airport code of the new airport
-	 * @param latString
-	 *            the airport's latitude in degrees as a string [-90, 90]
-	 * @param longString
-	 *            the airport's longitude in degrees as a string [-180, 180]
+	 * @param iata            the 3 letter airport code of the new airport
+	 * @param latString            the airport's latitude in degrees as a string [-90, 90]
+	 * @param longString            the airport's longitude in degrees as a string [-180, 180]
+	 * @param city the city
+	 * @param country the country
+	 * @param icao the icao
+	 * @param altitudeString the altitude string
+	 * @param timezoneString the timezone string
+	 * @param dst the dst
+	 * @param name the name
 	 * @return HTTP Response code for the add operation
 	 */
 	Response addAirport(@PathParam("iata") String iata, @PathParam("lat") String latString,
@@ -76,14 +79,18 @@ public interface WeatherCollectorEndpoint {
 			@PathParam("timezone") String timezoneString, @PathParam("dst") String dst, @PathParam("name") String name);
 
 	/**
-	 * Remove an airport from the known airport list
+	 * Remove an airport from the known airport list.
 	 *
-	 * @param iata
-	 *            the 3 letter airport code
+	 * @param iata            the 3 letter airport code
 	 * @return HTTP Response code for the delete operation
 	 */
 	Response deleteAirport(@PathParam("iata") String iata);
 
+	/**
+	 * Exit.
+	 *
+	 * @return the response
+	 */
 	/*
 	 * Shutdown the host application.
 	 * 

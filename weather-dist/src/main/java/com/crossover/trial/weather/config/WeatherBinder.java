@@ -13,9 +13,10 @@ import com.crossover.trial.weather.service.WeatherCollectServiceImpl;
 import com.crossover.trial.weather.service.WeatherQueryService;
 import com.crossover.trial.weather.service.WeatherQueryServiceImpl;
 
+
 /**
- * The Class WeatherBinder binds interface and its implementation class
- * 
+ * The Class WeatherBinder binds interface and its implementation class.
+ *
  * @author Ibrahim OGUZ.
  */
 public class WeatherBinder extends AbstractBinder {

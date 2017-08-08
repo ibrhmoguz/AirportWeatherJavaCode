@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package com.crossover.trial.weather;
 
 import static java.lang.String.format;
@@ -16,6 +19,7 @@ import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 
 import com.crossover.trial.weather.config.WeatherConfig;
 
+
 /**
  * This main method will be use by the automated functional grader. You
  * shouldn't move this class or remove the main method. You may change the
@@ -25,8 +29,14 @@ import com.crossover.trial.weather.config.WeatherConfig;
  */
 public class WeatherServer {
 
+	/** The Constant BASE_URL. */
 	private static final String BASE_URL = "http://localhost:9090/";
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		try {
 			System.out.println("Starting Weather App local testing server: " + BASE_URL);

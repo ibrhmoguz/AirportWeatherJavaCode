@@ -2,6 +2,7 @@ package com.crossover.trial.weather.config;
 
 import org.glassfish.jersey.server.ResourceConfig;
 
+
 /**
  * The Class WeatherConfig registers resources and injected classes.
  * 

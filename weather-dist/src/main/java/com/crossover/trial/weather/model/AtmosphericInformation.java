@@ -1,35 +1,52 @@
+/*
+ * 
+ */
 package com.crossover.trial.weather.model;
 
+
 /**
- * encapsulates sensor information for a particular location
+ * encapsulates sensor information for a particular location.
  */
 public class AtmosphericInformation {
 
-    /** temperature in degrees celsius */
+    /**  temperature in degrees celsius. */
     private DataPoint temperature;
 
-    /** wind speed in km/h */
+    /**  wind speed in km/h. */
     private DataPoint wind;
 
-    /** humidity in percent */
+    /**  humidity in percent. */
     private DataPoint humidity;
 
-    /** precipitation in cm */
+    /**  precipitation in cm. */
     private DataPoint precipitation;
 
-    /** pressure in mmHg */
+    /**  pressure in mmHg. */
     private DataPoint pressure;
 
-    /** cloud cover percent from 0 - 100 (integer) */
+    /**  cloud cover percent from 0 - 100 (integer). */
     private DataPoint cloudCover;
 
-    /** the last time this data was updated, in milliseconds since UTC epoch */
+    /**  the last time this data was updated, in milliseconds since UTC epoch. */
     private long lastUpdateTime;
 
+    /**
+     * Instantiates a new atmospheric information.
+     */
     public AtmosphericInformation() {
 
     }
 
+    /**
+     * Instantiates a new atmospheric information.
+     *
+     * @param temperature the temperature
+     * @param wind the wind
+     * @param humidity the humidity
+     * @param percipitation the percipitation
+     * @param pressure the pressure
+     * @param cloudCover the cloud cover
+     */
     protected AtmosphericInformation(DataPoint temperature, DataPoint wind, DataPoint humidity, DataPoint percipitation, DataPoint pressure, DataPoint cloudCover) {
         this.temperature = temperature;
         this.wind = wind;
@@ -40,6 +57,9 @@ public class AtmosphericInformation {
         this.lastUpdateTime = System.currentTimeMillis();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
 	public int hashCode() {
 		final int prime = 31;
@@ -54,6 +74,9 @@ public class AtmosphericInformation {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -98,45 +121,128 @@ public class AtmosphericInformation {
 		return true;
 	}
 
+	/**
+	 * Gets the temperature.
+	 *
+	 * @return the temperature
+	 */
 	public DataPoint getTemperature() {
         return temperature;
     }
+    
+    /**
+     * Sets the temperature.
+     *
+     * @param temperature the new temperature
+     */
     public void setTemperature(DataPoint temperature) {
         this.temperature = temperature;
     }
+    
+    /**
+     * Gets the wind.
+     *
+     * @return the wind
+     */
     public DataPoint getWind() {
         return wind;
     }
+    
+    /**
+     * Sets the wind.
+     *
+     * @param wind the new wind
+     */
     public void setWind(DataPoint wind) {
         this.wind = wind;
     }
+    
+    /**
+     * Gets the humidity.
+     *
+     * @return the humidity
+     */
     public DataPoint getHumidity() {
         return humidity;
     }
+    
+    /**
+     * Sets the humidity.
+     *
+     * @param humidity the new humidity
+     */
     public void setHumidity(DataPoint humidity) {
         this.humidity = humidity;
     }
+    
+    /**
+     * Gets the precipitation.
+     *
+     * @return the precipitation
+     */
     public DataPoint getPrecipitation() {
         return precipitation;
     }
+    
+    /**
+     * Sets the precipitation.
+     *
+     * @param precipitation the new precipitation
+     */
     public void setPrecipitation(DataPoint precipitation) {
         this.precipitation = precipitation;
     }
+    
+    /**
+     * Gets the pressure.
+     *
+     * @return the pressure
+     */
     public DataPoint getPressure() {
         return pressure;
     }
+    
+    /**
+     * Sets the pressure.
+     *
+     * @param pressure the new pressure
+     */
     public void setPressure(DataPoint pressure) {
         this.pressure = pressure;
     }
+    
+    /**
+     * Gets the cloud cover.
+     *
+     * @return the cloud cover
+     */
     public DataPoint getCloudCover() {
         return cloudCover;
     }
+    
+    /**
+     * Sets the cloud cover.
+     *
+     * @param cloudCover the new cloud cover
+     */
     public void setCloudCover(DataPoint cloudCover) {
         this.cloudCover = cloudCover;
     }
+    
+    /**
+     * Gets the last update time.
+     *
+     * @return the last update time
+     */
     public long getLastUpdateTime() {
         return this.lastUpdateTime;
     }
+    
+    /**
+     * Sets the last update time.
+     *
+     * @param lastUpdateTime the new last update time
+     */
     public void setLastUpdateTime(long lastUpdateTime) {
         this.lastUpdateTime = lastUpdateTime;
     }

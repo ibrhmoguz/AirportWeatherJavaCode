@@ -14,6 +14,7 @@ import com.crossover.trial.weather.exception.WeatherExceptionHandler;
 import com.crossover.trial.weather.rest.RestWeatherCollectorEndpoint;
 import com.crossover.trial.weather.rest.RestWeatherQueryEndpoint;
 
+
 /**
  * The Class WeatherApplication keeps all resource classes.
  * 

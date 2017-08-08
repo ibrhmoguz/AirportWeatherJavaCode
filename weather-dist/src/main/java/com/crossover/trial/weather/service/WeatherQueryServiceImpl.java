@@ -16,26 +16,49 @@ import com.crossover.trial.weather.repository.FrequencyDataRepository;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+
+/**
+ * The Class WeatherQueryServiceImpl.
+ */
 public class WeatherQueryServiceImpl implements WeatherQueryService {
 
+	/** The Constant LOGGER. */
 	private static final Logger LOGGER = Logger.getLogger(WeatherQueryServiceImpl.class.getName());
+	
+	/** The Constant gson. */
 	public static final Gson gson = new GsonBuilder().enableComplexMapKeySerialization().setPrettyPrinting().create();
 
-	/** earth radius in KM */
+	/**  earth radius in KM. */
 	public static final double R = 6372.8;
 
+	/** The airport repository. */
 	private final AirportDataRepository airportRepository;
+	
+	/** The atmospheric data repository. */
 	private final AtmosphericDataRepository atmosphericDataRepository;
+	
+	/** The frequency data repository. */
 	private final FrequencyDataRepository frequencyDataRepository;
 
+	/**
+	 * Instantiates a new weather query service impl.
+	 *
+	 * @param repo the repo
+	 * @param repoAtmospheric the repo atmospheric
+	 * @param repoFrequencyData the repo frequency data
+	 */
 	@Inject
 	public WeatherQueryServiceImpl(AirportDataRepository repo, AtmosphericDataRepository repoAtmospheric,
 			FrequencyDataRepository repoFrequencyData) {
 		this.airportRepository = repo;
 		this.atmosphericDataRepository = repoAtmospheric;
 		this.frequencyDataRepository = repoFrequencyData;
+		LOGGER.info(WeatherQueryServiceImpl.class.getName() + " initialized.");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.crossover.trial.weather.service.WeatherQueryService#ping()
+	 */
 	@Override
 	public String ping() {
 		Map<String, Object> retval = new HashMap<>();
@@ -74,6 +97,9 @@ public class WeatherQueryServiceImpl implements WeatherQueryService {
 		return gson.toJson(retval);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.crossover.trial.weather.service.WeatherQueryService#weather(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public String weather(String iata, String radiusString) {
 		double radius = radiusString == null || radiusString.trim().isEmpty() ? 0 : Double.valueOf(radiusString);
@@ -100,12 +126,25 @@ public class WeatherQueryServiceImpl implements WeatherQueryService {
 		return gson.toJson(retval);
 	}
 
+	/**
+	 * Update request frequency.
+	 *
+	 * @param iata the iata
+	 * @param radius the radius
+	 */
 	private void updateRequestFrequency(String iata, Double radius) {
 		AirportData airportData = this.airportRepository.getAirport(iata);
 		this.frequencyDataRepository.addRequestFrequency(airportData);
 		this.frequencyDataRepository.addRadiusFrequency(radius);
 	}
 
+	/**
+	 * Calculate distance.
+	 *
+	 * @param ad1 the ad 1
+	 * @param ad2 the ad 2
+	 * @return the double
+	 */
 	private double calculateDistance(AirportData ad1, AirportData ad2) {
 		if (ad1 == null || ad2 == null)
 			return 0;

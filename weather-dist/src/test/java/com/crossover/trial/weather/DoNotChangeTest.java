@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package com.crossover.trial.weather;
 
 import java.io.File;
@@ -17,6 +20,7 @@ import org.w3c.dom.NodeList;
 import com.crossover.trial.weather.rest.WeatherCollectorEndpoint;
 import com.crossover.trial.weather.rest.WeatherQueryEndpoint;
 
+
 /**
  * DO NOT CHANGE THIS CLASS.
  *
@@ -27,17 +31,19 @@ import com.crossover.trial.weather.rest.WeatherQueryEndpoint;
  */
 public class DoNotChangeTest {
 
-    /** required group id */
+    /**  required group id. */
     private static final String POM_GROUP_ID = "com.crossover.trial";
 
-    /** required artifact id */
+    /**  required artifact id. */
     private static final String POM_ARTIFACT_ID = "weather";
 
-    /** required version number */
+    /**  required version number. */
     private static final String POM_VERSION = "1.2.0";
 
+    /** The collector. */
     private WeatherCollectorEndpoint collector;
 
+    /** The query endpoint. */
     private WeatherQueryEndpoint queryEndpoint;
 
     /**
@@ -80,6 +86,11 @@ public class DoNotChangeTest {
         Response getResp = queryEndpoint.weather((String) null, (String) null);
     }
 
+    /**
+     * Test pom file.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testPomFile() throws Exception {
         // Locate the path of pom.xml with standard maven folder structure

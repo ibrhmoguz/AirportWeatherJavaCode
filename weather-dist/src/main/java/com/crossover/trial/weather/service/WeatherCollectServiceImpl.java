@@ -15,20 +15,40 @@ import com.crossover.trial.weather.repository.AtmosphericDataRepository;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+
+/**
+ * The Class WeatherCollectServiceImpl.
+ */
 public class WeatherCollectServiceImpl implements WeatherCollectService {
 
+	/** The Constant LOGGER. */
 	private static final Logger LOGGER = Logger.getLogger(WeatherCollectServiceImpl.class.getName());
+	
+	/** The Constant gson. */
 	public static final Gson gson = new GsonBuilder().enableComplexMapKeySerialization().setPrettyPrinting().create();
 
+	/** The airport repository. */
 	private final AirportDataRepository airportRepository;
+	
+	/** The atmospheric data repository. */
 	private final AtmosphericDataRepository atmosphericDataRepository;
 
+	/**
+	 * Instantiates a new weather collect service impl.
+	 *
+	 * @param repo the repo
+	 * @param repoAtmospheric the repo atmospheric
+	 */
 	@Inject
 	public WeatherCollectServiceImpl(AirportDataRepository repo, AtmosphericDataRepository repoAtmospheric) {
 		this.airportRepository = repo;
 		this.atmosphericDataRepository = repoAtmospheric;
+		LOGGER.info(WeatherCollectServiceImpl.class.getName() + " initialized.");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.crossover.trial.weather.service.WeatherCollectService#updateWeather(java.lang.String, java.lang.String, java.lang.String)
+	 */
 	@Override
 	public boolean updateWeather(String iataCode, String pointType, String datapointJson) {
 		int airportDataIdx = this.airportRepository.getAirportDataIdx(iataCode);
@@ -38,18 +58,27 @@ public class WeatherCollectServiceImpl implements WeatherCollectService {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.crossover.trial.weather.service.WeatherCollectService#getAirports()
+	 */
 	@Override
 	public String getAirports() {
 		String retVal = this.airportRepository.getAirports();
 		return gson.toJson(retVal);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.crossover.trial.weather.service.WeatherCollectService#getAirport(java.lang.String)
+	 */
 	@Override
 	public String getAirport(String iata) {
 		AirportData airport = this.airportRepository.getAirport(iata);
 		return gson.toJson(airport);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.crossover.trial.weather.service.WeatherCollectService#addAirport(java.lang.String, java.lang.Double, java.lang.Double, java.lang.String, java.lang.String, java.lang.String, java.lang.Double, java.lang.Double, java.lang.String, java.lang.String)
+	 */
 	@Override
 	public boolean addAirport(String iata, Double latitude, Double longtitude, String city, String country, String icao,
 			Double altitude, Double timezone, String dst, String name) {
@@ -70,12 +99,22 @@ public class WeatherCollectServiceImpl implements WeatherCollectService {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.crossover.trial.weather.service.WeatherCollectService#deleteAirport(java.lang.String)
+	 */
 	@Override
 	public boolean deleteAirport(String iata) {
 		this.airportRepository.deleteAirport(iata);
 		return true;
 	}
 
+	/**
+	 * Update atmospheric information.
+	 *
+	 * @param atmosphericInformation the atmospheric information
+	 * @param pointType the point type
+	 * @param datapointJson the datapoint json
+	 */
 	private void updateAtmosphericInformation(AtmosphericInformation atmosphericInformation, String pointType,
 			String datapointJson) {
 

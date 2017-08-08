@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package com.crossover.trial.weather;
 
 import java.io.BufferedReader;
@@ -18,6 +21,7 @@ import javax.ws.rs.core.Response;
 
 import com.crossover.trial.weather.model.AirportData;
 
+
 /**
  * A simple airport loader which reads a file from disk and sends entries to the
  * webservice.
@@ -25,9 +29,6 @@ import com.crossover.trial.weather.model.AirportData;
  * @author Ibrahim OGUZ
  */
 public class AirportLoader {
-
-	/**  end point for read queries. */
-	private WebTarget query;
 
 	/**  end point to supply updates. */
 	private WebTarget collect;
@@ -40,7 +41,7 @@ public class AirportLoader {
 	 */
 	public AirportLoader() {
 		Client client = ClientBuilder.newClient();
-		query = client.target("http://localhost:9090/query");
+		client.target("http://localhost:9090/query");
 		collect = client.target("http://localhost:9090/collect");
 		airportList = new ArrayList<>();
 	}

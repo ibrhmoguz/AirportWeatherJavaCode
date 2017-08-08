@@ -7,28 +7,35 @@ import javax.ws.rs.core.Response;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.crossover.trial.weather.model.AirportData;
-import com.crossover.trial.weather.service.WeatherCollectService;
 import com.crossover.trial.weather.service.WeatherQueryService;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 
+
+/**
+ * The Class RestWeatherQueryEndpointTest.
+ */
 public class RestWeatherQueryEndpointTest {
 
+	/** The query rest service. */
 	@InjectMocks
 	private RestWeatherQueryEndpoint queryRestService;
 
+	/** The query service. */
 	@Mock
 	private WeatherQueryService queryService;
 
+	/**
+	 * Instantiates a new rest weather query endpoint test.
+	 */
 	public RestWeatherQueryEndpointTest() {
 	}
 
+	/**
+	 * Sets the up.
+	 */
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
@@ -36,12 +43,18 @@ public class RestWeatherQueryEndpointTest {
 		when(queryService.weather("BOS", "20")).thenReturn("ready");
 	}
 
+	/**
+	 * Test ping.
+	 */
 	@Test
 	public void testPing() {
 		String response = this.queryRestService.ping();
 		assertEquals("ready", response);
 	}
 	
+	/**
+	 * Test weather.
+	 */
 	@Test
 	public void testWeather() {
 		Response response = this.queryRestService.weather("BOS", "20");

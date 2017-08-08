@@ -1,4 +1,3 @@
-com\crossover\trial\weather\WeatherEndpointTest.class
 com\crossover\trial\weather\rest\RestWeatherQueryEndpointTest.class
 com\crossover\trial\weather\service\WeatherCollectServiceTest.class
 com\crossover\trial\weather\service\WeatherQueryServiceTest.class

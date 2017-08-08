@@ -1,12 +1,28 @@
+/*
+ * 
+ */
 package com.crossover.trial.weather.model.pointtype;
 
 import com.crossover.trial.weather.model.DataPointType;
 
+
+/**
+ * A factory for creating AbstractDataPointType objects.
+ */
 public class AbstractDataPointTypeFactory {
 
+	/**
+	 * Instantiates a new abstract data point type factory.
+	 */
 	private AbstractDataPointTypeFactory() {
 	}
 
+	/**
+	 * Gets the data point type.
+	 *
+	 * @param pointType the point type
+	 * @return the data point type
+	 */
 	public static AbstractDataPointType getDataPointType(String pointType) {
 
 		AbstractDataPointType dataType = null;
