@@ -19,9 +19,13 @@ import com.crossover.trial.weather.service.WeatherQueryService;
  */
 @Path("/query")
 public class RestWeatherQueryEndpoint implements WeatherQueryEndpoint {
+	
+	private WeatherQueryService queryService;
 
 	@Inject
-	private WeatherQueryService queryService;
+	public RestWeatherQueryEndpoint(WeatherQueryService service){
+		this.queryService = service;
+	}
 
 	@Override
 	@GET

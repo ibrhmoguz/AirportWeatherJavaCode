@@ -4,78 +4,81 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
- * A collected point, including some information about the range of collected values
+ * A collected point, including some information about the range of collected
+ * values
  *
  * @author code test administrator
  */
 public class DataPoint {
 
-    public double mean = 0.0;
+	public double mean = 0.0;
 
-    public int first = 0;
+	public int first = 0;
 
-    public int second = 0;
+	public int second = 0;
 
-    public int third = 0;
+	public int third = 0;
 
-    public int count = 0;
+	public int count = 0;
 
-    protected DataPoint(int first, int second, int mean, int third, int count) {
-        this.setFirst(first);
-        this.setMean(mean);
-        this.setSecond(second);
-        this.setThird(third);
-        this.setCount(count);
-    }
+	protected DataPoint(int first, int second, int mean, int third, int count) {
+		this.setFirst(first);
+		this.setMean(mean);
+		this.setSecond(second);
+		this.setThird(third);
+		this.setCount(count);
+	}
 
-    /** the mean of the observations */
-    public double getMean() {
-        return mean;
-    }
+	/** the mean of the observations */
+	public double getMean() {
+		return mean;
+	}
 
-    protected void setMean(double mean) { this.mean = mean; }
+	protected void setMean(double mean) {
+		this.mean = mean;
+	}
 
-    /** 1st quartile -- useful as a lower bound */
-    public int getFirst() {
-        return first;
-    }
+	/** 1st quartile -- useful as a lower bound */
+	public int getFirst() {
+		return first;
+	}
 
-    protected void setFirst(int first) {
-        this.first = first;
-    }
+	protected void setFirst(int first) {
+		this.first = first;
+	}
 
-    /** 2nd quartile -- median value */
-    public int getSecond() {
-        return second;
-    }
+	/** 2nd quartile -- median value */
+	public int getSecond() {
+		return second;
+	}
 
-    protected void setSecond(int second) {
-        this.second = second;
-    }
+	protected void setSecond(int second) {
+		this.second = second;
+	}
 
-    /** 3rd quartile value -- less noisy upper value */
-    public int getThird() {
-        return third;
-    }
+	/** 3rd quartile value -- less noisy upper value */
+	public int getThird() {
+		return third;
+	}
 
-    protected void setThird(int third) {
-        this.third = third;
-    }
+	protected void setThird(int third) {
+		this.third = third;
+	}
 
-    /** the total number of measurements */
-    public int getCount() {
-        return count;
-    }
+	/** the total number of measurements */
+	public int getCount() {
+		return count;
+	}
 
-    protected void setCount(int count) {
-        this.count = count;
-    }
+	protected void setCount(int count) {
+		this.count = count;
+	}
 
-    public String toString() {
-        return ReflectionToStringBuilder.toString(this, ToStringStyle.NO_CLASS_NAME_STYLE);
-    }
+	public String toString() {
+		return ReflectionToStringBuilder.toString(this, ToStringStyle.NO_CLASS_NAME_STYLE);
+	}
 
-    @Override
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -111,42 +114,43 @@ public class DataPoint {
 		return true;
 	}
 
-    static public class Builder {
-        int first;
-        int mean;
-        int median;
-        int last;
-        int count;
+	public static class Builder {
+		int first;
+		int mean;
+		int median;
+		int last;
+		int count;
 
-        public Builder() { }
+		public Builder() {
+		}
 
-        public Builder withFirst(int first) {
-            first= first;
-            return this;
-        }
+		public Builder withFirst(int first) {
+			first = first;
+			return this;
+		}
 
-        public Builder withMean(int mean) {
-            mean = mean;
-            return this;
-        }
+		public Builder withMean(int mean) {
+			mean = mean;
+			return this;
+		}
 
-        public Builder withMedian(int median) {
-            median = median;
-            return this;
-        }
+		public Builder withMedian(int median) {
+			median = median;
+			return this;
+		}
 
-        public Builder withCount(int count) {
-            count = count;
-            return this;
-        }
+		public Builder withCount(int count) {
+			count = count;
+			return this;
+		}
 
-        public Builder withLast(int last) {
-            last = last;
-            return this;
-        }
+		public Builder withLast(int last) {
+			last = last;
+			return this;
+		}
 
-        public DataPoint build() {
-            return new DataPoint(this.first, this.mean, this.median, this.last, this.count);
-        }
-    }
+		public DataPoint build() {
+			return new DataPoint(this.first, this.mean, this.median, this.last, this.count);
+		}
+	}
 }

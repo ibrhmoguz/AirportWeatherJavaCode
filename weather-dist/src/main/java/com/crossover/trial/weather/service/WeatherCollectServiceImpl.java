@@ -26,7 +26,6 @@ public class WeatherCollectServiceImpl implements WeatherCollectService {
 	public WeatherCollectServiceImpl(AirportDataRepository repo, AtmosphericDataRepository repoAtmospheric) {
 		this.airportRepository = repo;
 		this.atmosphericDataRepository = repoAtmospheric;
-		// init();
 	}
 
 	@Override
@@ -82,20 +81,5 @@ public class WeatherCollectServiceImpl implements WeatherCollectService {
 		if (!result) {
 			throw new WeatherException("Couldn't update atmospheric data");
 		}
-	}
-
-	private void init() {
-		addAirport("EWR", 40.6925, -74.168667);
-		addAirport("JFK", 40.639751, -73.778925);
-		addAirport("LGA", 40.777245, -73.872608);
-		addAirport("MMU", 40.79935, -74.4148747);
-	}
-
-	private void addAirport(String iataCode, double latitude, double longitude) {
-		AirportData ad = new AirportData();
-		ad.setIata(iataCode);
-		ad.setLatitude(latitude);
-		ad.setLongitude(longitude);
-		this.airportRepository.addAirport(ad);
 	}
 }

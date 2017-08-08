@@ -1,2 +1,6 @@
 C:\GitHubProjects\AirportWeatherJavaCode\weather-dist\src\test\java\com\crossover\trial\weather\DoNotChangeTest.java
 C:\GitHubProjects\AirportWeatherJavaCode\weather-dist\src\test\java\com\crossover\trial\weather\WeatherEndpointTest.java
+C:\GitHubProjects\AirportWeatherJavaCode\weather-dist\src\test\java\com\crossover\trial\weather\service\WeatherCollectServiceTest.java
+C:\GitHubProjects\AirportWeatherJavaCode\weather-dist\src\test\java\com\crossover\trial\weather\service\WeatherQueryServiceTest.java
+C:\GitHubProjects\AirportWeatherJavaCode\weather-dist\src\test\java\com\crossover\trial\weather\rest\RestWeatherCollectorEndpointTest.java
+C:\GitHubProjects\AirportWeatherJavaCode\weather-dist\src\test\java\com\crossover\trial\weather\rest\RestWeatherQueryEndpointTest.java

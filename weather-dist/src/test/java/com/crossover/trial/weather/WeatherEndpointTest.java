@@ -11,9 +11,9 @@ import com.google.gson.Gson;
 
 public class WeatherEndpointTest {
 
-    private WeatherQueryEndpoint _query = new RestWeatherQueryEndpoint();
+    //private WeatherQueryEndpoint _query = new RestWeatherQueryEndpoint();
 
-    private WeatherCollectorEndpoint _update = new RestWeatherCollectorEndpoint();
+    //private WeatherCollectorEndpoint _update = new RestWeatherCollectorEndpoint();
 
     private Gson _gson = new Gson();
 
@@ -23,8 +23,8 @@ public class WeatherEndpointTest {
         //RestWeatherQueryEndpoint.init();
         _dp = new DataPoint.Builder()
                 .withCount(10).withFirst(10).withMedian(20).withLast(30).withMean(22).build();
-        _update.updateWeather("BOS", "wind", _gson.toJson(_dp));
-        _query.weather("BOS", "0").getEntity();
+        //_update.updateWeather("BOS", "wind", _gson.toJson(_dp));
+        //_query.weather("BOS", "0").getEntity();
     }
 /*
     @Test

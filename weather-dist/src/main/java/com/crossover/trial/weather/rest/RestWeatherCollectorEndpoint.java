@@ -22,8 +22,12 @@ import com.crossover.trial.weather.service.WeatherCollectService;
 @Path("/collect")
 public class RestWeatherCollectorEndpoint implements WeatherCollectorEndpoint {
 
-	@Inject
 	private WeatherCollectService collectService;
+
+	@Inject
+	public RestWeatherCollectorEndpoint(WeatherCollectService service) {
+		this.collectService = service;
+	}
 
 	@Override
 	@GET
@@ -70,7 +74,8 @@ public class RestWeatherCollectorEndpoint implements WeatherCollectorEndpoint {
 	public Response addAirport(@PathParam("iata") String iata, @PathParam("lat") String latString,
 			@PathParam("long") String longString, @PathParam("city") String city, @PathParam("country") String country,
 			@PathParam("icao") String icao, @PathParam("altitude") String altitudeString,
-			@PathParam("timezone") String timezoneString, @PathParam("dst") String dst, @PathParam("name") String name) {
+			@PathParam("timezone") String timezoneString, @PathParam("dst") String dst,
+			@PathParam("name") String name) {
 		if (iata.isEmpty() || latString.isEmpty() || longString.isEmpty()) {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
@@ -81,7 +86,8 @@ public class RestWeatherCollectorEndpoint implements WeatherCollectorEndpoint {
 			double altitude = Double.parseDouble(altitudeString);
 			double timezone = Double.parseDouble(timezoneString);
 
-			this.collectService.addAirport(iata, latitude, longtitude, city, country, icao, altitude, timezone, dst, name);
+			this.collectService.addAirport(iata, latitude, longtitude, city, country, icao, altitude, timezone, dst,
+					name);
 			return Response.status(Response.Status.OK).build();
 		} catch (NumberFormatException e) {
 			return Response.status(Response.Status.BAD_REQUEST).build();
