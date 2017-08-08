@@ -1,11 +1,8 @@
 package com.crossover.trial.weather.repository;
 
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Singleton;
 
 import com.crossover.trial.weather.exception.AtmosphericInformationNotFound;

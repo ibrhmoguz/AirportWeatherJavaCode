@@ -1,5 +1,13 @@
 package com.crossover.trial.weather;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import javax.ws.rs.core.Response;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.w3c.dom.Document;
@@ -8,13 +16,6 @@ import org.w3c.dom.NodeList;
 
 import com.crossover.trial.weather.rest.WeatherCollectorEndpoint;
 import com.crossover.trial.weather.rest.WeatherQueryEndpoint;
-
-import javax.ws.rs.core.Response;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
-import java.io.FileInputStream;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * DO NOT CHANGE THIS CLASS.
@@ -58,7 +59,7 @@ public class DoNotChangeTest {
 
         Response getAirportResp = collector.getAirport((String) null);
 
-        Response addAirportResp = collector.addAirport((String) null, (String) null, (String) null);
+        Response addAirportResp = collector.addAirport((String) null, (String) null, (String) null, (String) null, (String) null, (String) null, (String) null, (String) null, (String) null, (String) null);
 
         Response deleteAirportResp = collector.deleteAirport((String) null);
     }

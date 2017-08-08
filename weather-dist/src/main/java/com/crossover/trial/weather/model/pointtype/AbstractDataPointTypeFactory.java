@@ -10,7 +10,7 @@ public class AbstractDataPointTypeFactory {
 	public static AbstractDataPointType getDataPointType(String pointType) {
 
 		AbstractDataPointType dataType = null;
-		DataPointType dataPointTypeEnum = DataPointType.valueOf(pointType);
+		DataPointType dataPointTypeEnum = DataPointType.valueOf(pointType.toUpperCase());
 
 		switch (dataPointTypeEnum) {
 		case WIND:

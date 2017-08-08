@@ -1,6 +1,5 @@
 package com.crossover.trial.weather.repository;
 
-import java.util.List;
 import java.util.Map;
 
 import com.crossover.trial.weather.model.AtmosphericInformation;

@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Singleton;
 
 import com.crossover.trial.weather.exception.AirportAlreadyExists;

@@ -2,9 +2,7 @@ package com.crossover.trial.weather.service;
 
 import java.util.logging.Logger;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import com.crossover.trial.weather.exception.WeatherException;
 import com.crossover.trial.weather.model.AirportData;
@@ -20,7 +18,7 @@ public class WeatherCollectServiceImpl implements WeatherCollectService {
 
 	private static final Logger LOGGER = Logger.getLogger(WeatherCollectServiceImpl.class.getName());
 	public static final Gson gson = new Gson();
-	
+
 	private final AirportDataRepository airportRepository;
 	private final AtmosphericDataRepository atmosphericDataRepository;
 
@@ -28,6 +26,7 @@ public class WeatherCollectServiceImpl implements WeatherCollectService {
 	public WeatherCollectServiceImpl(AirportDataRepository repo, AtmosphericDataRepository repoAtmospheric) {
 		this.airportRepository = repo;
 		this.atmosphericDataRepository = repoAtmospheric;
+		// init();
 	}
 
 	@Override
@@ -46,16 +45,24 @@ public class WeatherCollectServiceImpl implements WeatherCollectService {
 
 	@Override
 	public String getAirport(String iata) {
-		AirportData airport= this.airportRepository.getAirport(iata);
+		AirportData airport = this.airportRepository.getAirport(iata);
 		return gson.toJson(airport);
 	}
 
 	@Override
-	public void addAirport(String iata, Double latitude, Double longtitude) {		
+	public void addAirport(String iata, Double latitude, Double longtitude, String city, String country, String icao,
+			Double altitude, Double timezone, String dst, String name) {
 		AirportData airport = new AirportData();
 		airport.setIata(iata);
 		airport.setLatitude(latitude);
 		airport.setLongitude(longtitude);
+		airport.setCity(city);
+		airport.setCountry(country);
+		airport.setIcao(icao);
+		airport.setAltitude(altitude);
+		airport.setTimezone(timezone);
+		airport.setDst(dst);
+		airport.setName(name);
 		this.airportRepository.addAirport(airport);
 		int airportDataIdx = this.airportRepository.getAirportDataIdx(iata);
 		this.atmosphericDataRepository.addAtmosphericInformation(airportDataIdx, new AtmosphericInformation());
@@ -75,5 +82,20 @@ public class WeatherCollectServiceImpl implements WeatherCollectService {
 		if (!result) {
 			throw new WeatherException("Couldn't update atmospheric data");
 		}
+	}
+
+	private void init() {
+		addAirport("EWR", 40.6925, -74.168667);
+		addAirport("JFK", 40.639751, -73.778925);
+		addAirport("LGA", 40.777245, -73.872608);
+		addAirport("MMU", 40.79935, -74.4148747);
+	}
+
+	private void addAirport(String iataCode, double latitude, double longitude) {
+		AirportData ad = new AirportData();
+		ad.setIata(iataCode);
+		ad.setLatitude(latitude);
+		ad.setLongitude(longitude);
+		this.airportRepository.addAirport(ad);
 	}
 }

@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import com.crossover.trial.weather.model.AirportData;
 import com.crossover.trial.weather.model.AtmosphericInformation;
@@ -16,7 +15,6 @@ import com.crossover.trial.weather.repository.AtmosphericDataRepository;
 import com.crossover.trial.weather.repository.FrequencyDataRepository;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 
 public class WeatherQueryServiceImpl implements WeatherQueryService {
 
@@ -36,7 +34,6 @@ public class WeatherQueryServiceImpl implements WeatherQueryService {
 		this.airportRepository = repo;
 		this.atmosphericDataRepository = repoAtmospheric;
 		this.frequencyDataRepository = repoFrequencyData;
-		//init();
 	}
 
 	@Override
@@ -118,20 +115,5 @@ public class WeatherQueryServiceImpl implements WeatherQueryService {
 				+ Math.pow(Math.sin(deltaLon / 2), 2) * Math.cos(ad1.getLatitude()) * Math.cos(ad2.getLatitude());
 		double c = 2 * Math.asin(Math.sqrt(a));
 		return R * c;
-	}
-
-	private void init() {
-		addAirport("EWR", 40.6925, -74.168667);
-		addAirport("JFK", 40.639751, -73.778925);
-		addAirport("LGA", 40.777245, -73.872608);
-		addAirport("MMU", 40.79935, -74.4148747);
-	}
-
-	private void addAirport(String iataCode, double latitude, double longitude) {
-		AirportData ad = new AirportData();
-		ad.setIata(iataCode);
-		ad.setLatitude(latitude);
-		ad.setLongitude(longitude);
-		this.airportRepository.addAirport(ad);
 	}
 }

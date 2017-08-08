@@ -1,8 +1,11 @@
 package com.crossover.trial.weather.rest;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.crossover.trial.weather.service.WeatherQueryService;
@@ -21,6 +24,8 @@ public class RestWeatherQueryEndpoint implements WeatherQueryEndpoint {
 	private WeatherQueryService queryService;
 
 	@Override
+	@GET
+	@Path("/ping")
 	public String ping() {
 		return this.queryService.ping();
 	}
@@ -38,7 +43,10 @@ public class RestWeatherQueryEndpoint implements WeatherQueryEndpoint {
 	 * @return a list of atmospheric information
 	 */
 	@Override
-	public Response weather(String iata, String radiusString) {
+	@GET
+	@Path("/weather/{iata}/{radius}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response weather(@PathParam("iata") String iata, @PathParam("radius") String radiusString) {
 		String retVal = this.queryService.weather(iata, radiusString);
 		return Response.status(Response.Status.OK).entity(retVal).build();
 	}
